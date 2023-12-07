@@ -1,0 +1,48 @@
+// Use DBML to define your database structure
+// Docs: https://dbdiagram.io/home
+
+Table users {
+  id integer [pk, increment]
+  full_name varchar [not null]
+  email varchar(100) [not null, unique]
+  password varchar [not null]
+  avatar varchar
+  birthdate timestamp [not null]
+  role varchar [default: "user"]
+  active boolean [default: true]
+  created_at timestamp [default: "now()"]
+}
+
+Table videos {
+  id integer [pk, increment]
+  user_id integer [ref: > users.id]
+  link varchar [not null]
+  title varchar [not null]
+  description varchar
+  poster varchar
+  slug varchar [not null, unique]
+  created_at timestamp [default: "now()"]
+}
+
+Table comments {
+  id integer [pk, increment]
+  user_id integer [ref: > users.id]
+  video_id integer [ref: > videos.id]
+  title varchar
+  body text [not null]
+  created_at timestamp [default: "now()"]
+}
+
+Table likes {
+  id integer [pk, increment]
+  user_id integer [ref: > users.id]
+  video_id integer [ref: > videos.id]
+  like boolean
+}
+
+Table history {
+  id integer [pk, increment]
+  user_id integer [ref: > users.id]
+  video_id integer [ref: > videos.id]
+  created_at timestamp [default: "now()"]
+}
