@@ -1,4 +1,5 @@
 import { request, response } from "express";
+import { v4 as uuidv4 } from "uuid";
 
 import { videosModel } from "../models/videos.model.js";
 
@@ -64,7 +65,7 @@ const getByUserId = async (req = request, res = response) => {
   const { id } = req.params;
 
   try {
-    const { rows: data } = await videosModel.getByUserId();
+    const { rows: data } = await videosModel.getByUserId(id);
 
     return res.json({
       data,
@@ -81,7 +82,8 @@ const getByUserId = async (req = request, res = response) => {
 };
 
 const create = async (req = request, res = response) => {
-  const { user_id, link, title, description, poster, slug } = req.body;
+  const { user_id, link, title, description = "", poster = "" } = req.body;
+  const slug = uuidv4();
 
   try {
     const { rows: data } = await videosModel.create({
@@ -109,7 +111,7 @@ const create = async (req = request, res = response) => {
 
 const update = async (req = request, res = response) => {
   const { id } = req.params;
-  const { link, title, description, poster, slug } = req.body;
+  const { link, title, description, poster } = req.body;
 
   try {
     const { rows: data } = await videosModel.update({
@@ -118,7 +120,6 @@ const update = async (req = request, res = response) => {
       title,
       description,
       poster,
-      slug,
     });
 
     return res.json({

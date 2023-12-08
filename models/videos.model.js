@@ -43,16 +43,15 @@ const create = async ({ user_id, link, title, description, poster, slug }) => {
   return result;
 };
 
-const update = async ({ id, link, title, description, poster, slug }) => {
+const update = async ({ id, link, title, description, poster }) => {
   const query =
-    "UPDATE videos SET link = $1, title = $2, description = $3, poster = $4, slug = $5 WHERE id = $6 RETURNING *";
+    "UPDATE videos SET link = $1, title = $2, description = $3, poster = $4 WHERE id = $5 RETURNING *";
 
   const result = await pool.query(query, [
     link,
     title,
     description,
     poster,
-    slug,
     id,
   ]);
 
