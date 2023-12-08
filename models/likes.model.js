@@ -1,21 +1,24 @@
 import { pool } from "../db/connection.js";
 
 const getByVideoId = async (id) => {
-  const query = "SELECT * FROM likes WHERE video_id = $1";
+  const query =
+    "SELECT * FROM likes WHERE video_id = $1 AND hide_element = false";
 
   const result = await pool.query(query, [id]);
   return result;
 };
 
 const getByUserId = async (id) => {
-  const query = "SELECT * FROM likes WHERE user_id = $1";
+  const query =
+    "SELECT * FROM likes WHERE user_id = $1 AND hide_element = false";
 
   const result = await pool.query(query, [id]);
   return result;
 };
 
 const getByVideoAndUserId = async ({ video_id, user_id }) => {
-  const query = "SELECT * FROM likes WHERE video_id = $1 AND user_id = $2";
+  const query =
+    "SELECT * FROM likes WHERE video_id = $1 AND user_id = $2 AND hide_element = false";
 
   const result = await pool.query(query, [video_id, user_id]);
 
@@ -48,7 +51,7 @@ const create = async ({ video_id, user_id, like }) => {
 
 const remove = async ({ video_id, user_id }) => {
   const query =
-    "DELETE FROM likes WHERE video_id = $1 AND user_id = $2 RETURNING *";
+    "UPDATE likes SET hide_element = true WHERE video_id = $1 AND user_id = $2 RETURNING *";
 
   const result = await pool.query(query, [video_id, user_id]);
 

@@ -1,6 +1,3 @@
-// Use DBML to define your database structure
-// Docs: https://dbdiagram.io/home
-
 Table users {
   id integer [pk, increment]
   full_name varchar [not null]
@@ -21,6 +18,7 @@ Table videos {
   description varchar
   poster varchar
   slug varchar [not null, unique]
+  delete boolean [default: false]
   created_at timestamp [default: "now()"]
 }
 
@@ -30,6 +28,7 @@ Table comments {
   video_id integer [ref: > videos.id]
   title varchar
   body text [not null]
+  delete boolean [default: false]
   created_at timestamp [default: "now()"]
 }
 
@@ -37,12 +36,15 @@ Table likes {
   id integer [pk, increment]
   user_id integer [ref: > users.id]
   video_id integer [ref: > videos.id]
-  like boolean
+  status boolean
+  delete boolean [default: false]
+  created_at timestamp [default: "now()"]
 }
 
 Table history {
   id integer [pk, increment]
   user_id integer [ref: > users.id]
   video_id integer [ref: > videos.id]
+  delete boolean [default: false]
   created_at timestamp [default: "now()"]
 }

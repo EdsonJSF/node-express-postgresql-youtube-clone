@@ -1,12 +1,12 @@
 import { pool } from "../db/connection.js";
 
 const getAll = async () => {
-  const result = await pool.query("SELECT * FROM videos");
+  const result = await pool.query("SELECT * FROM videos WHERE hide_element = false");
   return result;
 };
 
 const getById = async (id) => {
-  const query = "SELECT * FROM videos WHERE id = $1";
+  const query = "SELECT * FROM videos WHERE id = $1 AND hide_element = false";
 
   const result = await pool.query(query, [id]);
 
@@ -14,14 +14,14 @@ const getById = async (id) => {
 };
 
 const getBySlug = async (slug) => {
-  const query = "SELECT * FROM videos WHERE slug = $1";
+  const query = "SELECT * FROM videos WHERE slug = $1 AND hide_element = false";
 
   const result = await pool.query(query, [slug]);
   return result;
 };
 
 const getByUserId = async (id) => {
-  const query = "SELECT * FROM videos WHERE user_id = $1";
+  const query = "SELECT * FROM videos WHERE user_id = $1 AND hide_element = false";
 
   const result = await pool.query(query, [id]);
   return result;
@@ -59,7 +59,7 @@ const update = async ({ id, link, title, description, poster }) => {
 };
 
 const remove = async (id) => {
-  const query = "DELETE FROM videos WHERE id = $1 RETURNING *";
+  const query = "UPDATE videos SET hide_element = true WHERE id = $1 RETURNING *";
 
   const result = await pool.query(query, [id]);
 
