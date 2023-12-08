@@ -82,7 +82,9 @@ const getByUserId = async (req = request, res = response) => {
 };
 
 const create = async (req = request, res = response) => {
-  const { user_id, link, title, description = "", poster = "" } = req.body;
+  const { link, title, description = "", poster = "" } = req.body;
+  const { id: user_id } = req.getUser;
+
   const slug = uuidv4();
 
   try {

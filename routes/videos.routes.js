@@ -4,7 +4,9 @@ import { check } from "express-validator";
 import { videosControllers } from "../controllers/videos.controllers.js";
 import {
   validateFields,
+  validateJWT,
   validateVideoId,
+  validateVideoOwner,
   validateVideoSlug,
   validateVideoUserId,
 } from "../middlewares/index.js";
@@ -34,7 +36,7 @@ router.get(
 router.post(
   "/",
   [
-    check("user_id", "Invalid user id").isNumeric().not().isEmpty(),
+    validateJWT,
     check("link", "Invalid link").not().isEmpty(),
     check("title", "Invalid title").not().isEmpty(),
     validateFields,
@@ -45,6 +47,8 @@ router.post(
 router.put(
   "/:id",
   [
+    validateJWT,
+    validateVideoOwner,
     check("id").custom(validateVideoId),
     check("link", "Invalid link").not().isEmpty(),
     check("title", "Invalid title").not().isEmpty(),
@@ -57,7 +61,12 @@ router.put(
 
 router.delete(
   "/:id",
-  [check("id").custom(validateVideoId), validateFields],
+  [
+    validateJWT,
+    validateVideoOwner,
+    check("id").custom(validateVideoId),
+    validateFields,
+  ],
   videosControllers.remove
 );
 
