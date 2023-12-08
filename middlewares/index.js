@@ -1,6 +1,7 @@
-export { validateJWT } from "./jwt-validations.js";
-export { validateUserEmail, validateUserId } from "./users-validations.js";
 export { validateFields } from "./validatations.js";
+export { validateJWT } from "./jwt-validations.js";
+export { validateLikeOwner } from "./likes-validations.js";
+export { validateUserEmail, validateUserId } from "./users-validations.js";
 export {
   validateVideoId,
   validateVideoOwner,
