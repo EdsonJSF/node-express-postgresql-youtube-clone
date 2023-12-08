@@ -1,3 +1,5 @@
+// https://dbdiagram.io/home
+
 Table users {
   id integer [pk, increment]
   full_name varchar [not null]
