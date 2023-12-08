@@ -4,6 +4,7 @@ import "dotenv/config";
 
 import authRoutes from "./routes/auth.routes.js";
 import commentsRoutes from "./routes/comments.routes.js";
+import historyRoutes from "./routes/history.routes.js";
 import likesRoutes from "./routes/likes.routes.js";
 import usersRoutes from "./routes/users.routes.js";
 import videosRoutes from "./routes/videos.routes.js";
@@ -17,6 +18,7 @@ const PORT = process.env.PORT || 8001;
 /* ROUTES */
 app.use("/api/login", authRoutes);
 app.use("/api/comments", commentsRoutes);
+app.use("/api/history", historyRoutes);
 app.use("/api/likes", likesRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/videos", videosRoutes);
