@@ -1,3 +1,4 @@
+export { validateCommentOwner } from "./comments-validations.js";
 export { validateFields } from "./validatations.js";
 export { validateJWT } from "./jwt-validations.js";
 export { validateLikeOwner } from "./likes-validations.js";
