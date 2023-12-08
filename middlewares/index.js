@@ -1,3 +1,4 @@
+export { validateUserEmail, validateUserId } from "./users-validations.js";
 export { validateFields } from "./validatations.js";
 export {
   validateVideoId,

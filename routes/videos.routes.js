@@ -35,8 +35,8 @@ router.post(
   "/",
   [
     check("user_id", "Invalid user id").isNumeric().not().isEmpty(),
-    check("link", "Invalid user id").not().isEmpty(),
-    check("title", "Invalid user id").not().isEmpty(),
+    check("link", "Invalid link").not().isEmpty(),
+    check("title", "Invalid title").not().isEmpty(),
     validateFields,
   ],
   videosControllers.create
@@ -44,7 +44,14 @@ router.post(
 
 router.put(
   "/:id",
-  [check("id").custom(validateVideoId), validateFields],
+  [
+    check("id").custom(validateVideoId),
+    check("link", "Invalid link").not().isEmpty(),
+    check("title", "Invalid title").not().isEmpty(),
+    check("description", "Invalid description").not().isEmpty(),
+    check("poster", "Invalid poster").not().isEmpty(),
+    validateFields,
+  ],
   videosControllers.update
 );
 
